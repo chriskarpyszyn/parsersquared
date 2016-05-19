@@ -3,6 +3,8 @@ const KEY_DOWN_ARROW = 40;
 const KEY_LEFT_ARROW = 37;
 const KEY_RIGHT_ARROW = 39;
 
+const KEY_BACKSPACE = 8;
+
 var inputText = "";
 
 function initInput() {
@@ -17,7 +19,9 @@ function keyPressed(evt) {
 
     if (isArrowKey(evt.keyCode)) {
         setKeyHoldState(evt.keyCode, player, true);
-    } else {
+    } else if (inputText.length > 0 && evt.keyCode === KEY_BACKSPACE) {
+        inputText = inputText.substring(0, inputText.length - 1);
+    } else if (evt.keyCode !== KEY_BACKSPACE) {
         inputText += evt.keyCode;
     }
 }
