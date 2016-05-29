@@ -4,8 +4,11 @@ const KEY_LEFT_ARROW = 37;
 const KEY_RIGHT_ARROW = 39;
 
 const KEY_BACKSPACE = 8;
+const KEY_ENTER = 13;
 
 var inputText = "";
+
+//http://stackoverflow.com/questions/1772179/get-character-value-from-keycode-in-javascript-then-trim
 
 function initInput() {
     document.addEventListener("keydown", keyPressed);
@@ -17,12 +20,14 @@ function initInput() {
 function keyPressed(evt) {
     evt.preventDefault();
 
-    if (isArrowKey(evt.keyCode)) {
-        setKeyHoldState(evt.keyCode, player, true);
-    } else if (inputText.length > 0 && evt.keyCode === KEY_BACKSPACE) {
+    var key = evt.keyCode;
+
+    if (isArrowKey(key)) {
+        setKeyHoldState(key, player, true);
+    } else if (inputText.length > 0 && key === KEY_BACKSPACE) {
         inputText = inputText.substring(0, inputText.length - 1);
-    } else if (evt.keyCode !== KEY_BACKSPACE) {
-        inputText += evt.keyCode;
+    } else if (key !== KEY_BACKSPACE && key !== KEY_ENTER) {
+        inputText += String.fromCharCode(key);
     }
 }
 
@@ -54,5 +59,5 @@ function isArrowKey(keyCode) {
 
 
 function drawKeyInput() {
-    drawText(inputText, 10, 10, "#FFFFFF", "Calibri 20px", "left");
+    drawText(inputText, 10, canvas.height-20, "#FFFFFF", " 15px Consolas", "left");
 }
